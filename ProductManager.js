@@ -37,6 +37,3 @@ class ProductManager{
         return this.productos[indice]
     }
 }
-
-let ProductManager = new ProductManager()
-ProductManager.addProducts
