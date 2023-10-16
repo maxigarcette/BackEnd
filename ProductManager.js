@@ -19,19 +19,19 @@ class ProductManager{
         }
 
         let existe = this.productos.findIndex(producto=>producto.codigo===codigo)
-        if(existe===-1){
-            let nuevoProducto ={
-                id,
-                producto, descripcion,
-                precio: precio + precio*ProductManager.#precioBaseGanancia,
-                img, codigo, stock
-            }
-    
-            this.productos.push(nuevoProducto)
-        } else {
+        if(existe!==-1){
             console.log("code already exists")
             return
         }
+
+        let nuevoProducto ={
+            id,
+            producto, descripcion,
+            precio: precio + precio*ProductManager.#precioBaseGanancia,
+            img, codigo, stock
+        }
+
+        this.productos.push(nuevoProducto)
     }
 
     getProductById(id){
