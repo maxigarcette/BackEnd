@@ -17,15 +17,21 @@ class ProductManager{
         if(this.productos.length>0){
             id=this.productos[this.productos.length-1].id + 1
         }
-        
-        let nuevoProducto ={
-            id,
-            producto, descripcion,
-            precio: precio + precio*ProductManager.#precioBaseGanancia,
-            img, codigo, stock
-        }
 
-        this.productos.push(nuevoProducto)
+        let indice = this.productos.findIndex(producto=>producto.codigo===codigo)
+        if(indice===-1){
+            let nuevoProducto ={
+                id,
+                producto, descripcion,
+                precio: precio + precio*ProductManager.#precioBaseGanancia,
+                img, codigo, stock
+            }
+    
+            this.productos.push(nuevoProducto)
+        } else {
+            console.log("code already exists")
+            return
+        }
     }
 
     getProductById(id){
