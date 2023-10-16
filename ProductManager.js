@@ -18,8 +18,8 @@ class ProductManager{
             id=this.productos[this.productos.length-1].id + 1
         }
 
-        let indice = this.productos.findIndex(producto=>producto.codigo===codigo)
-        if(indice===-1){
+        let existe = this.productos.findIndex(producto=>producto.codigo===codigo)
+        if(existe===-1){
             let nuevoProducto ={
                 id,
                 producto, descripcion,
