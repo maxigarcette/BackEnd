@@ -1,0 +1,56 @@
+[
+     {
+          "id": 1,
+          "producto": "pelota",
+          "descripcion": "pelota Adidas",
+          "precio": 287.5,
+          "img": "https://picsum.photos/200/300",
+          "codigo": "PE01",
+          "stock": 10
+     },
+     {
+          "id": 2,
+          "producto": "pelota",
+          "descripcion": "pelota Nike",
+          "precio": 310.5,
+          "img": "https://picsum.photos/200/300",
+          "codigo": "PE02",
+          "stock": 10
+     },
+     {
+          "id": 3,
+          "producto": "pelota",
+          "descripcion": "pelota Puma",
+          "precio": 238,
+          "img": "https://picsum.photos/200/300",
+          "codigo": "PE03",
+          "stock": 24
+     },
+     {
+          "id": 4,
+          "producto": "botines",
+          "descripcion": "botines Adidas",
+          "precio": 632.5,
+          "img": "https://picsum.photos/200/300",
+          "codigo": "BO01",
+          "stock": 10
+     },
+     {
+          "id": 5,
+          "producto": "botines",
+          "descripcion": "botines Nike",
+          "precio": 517.5,
+          "img": "https://picsum.photos/200/300",
+          "codigo": "BO02",
+          "stock": 10
+     },
+     {
+          "id": 6,
+          "producto": "botines",
+          "descripcion": "botines Puma",
+          "precio": 402.5,
+          "img": "https://picsum.photos/200/300",
+          "codigo": "BO03",
+          "stock": 10
+     }
+]
