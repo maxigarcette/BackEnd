@@ -1,24 +1,56 @@
 const ProductManager = require("./ProductManager")
+const express=require('express');
 
-const pm = new ProductManager("./archivos/productos.json")
+const PORT=3000;
+
+const app=express();
+
+const pm = new ProductManager("./src/archivos/productos.json")
+
 
 const entorno = async()=>{
 
     try {
-        /*console.log(await pm.getProducts())
-        await pm.addProducts("pelota", "pelota Adidas", "https://picsum.photos/200/300", 250, "PE01", 10)
-        await pm.addProducts("pelota", "pelota Nike", "https://picsum.photos/200/300", 270, "PE02", 10)
-        await pm.addProducts("pelota", "pelota Puma", "https://picsum.photos/200/300", 230, "PE03", 10)
-        await pm.addProducts("botines", "botines Adidas", "https://picsum.photos/200/300", 550, "BO01", 10)
-        await pm.addProducts("botines", "botines Nike", "https://picsum.photos/200/300", 450, "BO02", 10)
-        await pm.addProducts("botines", "botines Puma", "https://picsum.photos/200/300", 350, "BO03", 10)
-        await pm.addProducts("botines", "botines Puma", "https://picsum.photos/200/300", 350, "BO04", 10)
-        console.log(await pm.getProducts())
-        console.log(await pm.getProductById(2))
-        console.log(await pm.getProductById(6))
-        console.log(await pm.getProductById(1))
-        await pm.deleteProduct(7)*/
-        await pm.updateProduct(3,238,24)
+
+        let products = await pm.getProducts()
+
+        const server=app.listen(PORT,()=>{
+            console.log(`Server escuchando en puerto ${PORT}`);
+        });
+        
+        app.get('/',(req,res)=>{
+            res.setHeader('Content-Type','text/plain');
+            res.status(200).send('home');
+        })
+        
+        app.get('/products',(req,res)=>{
+        
+            let resultado = products
+        
+            if(req.query.limit){
+                resultado=resultado.slice(0, req.query.limit)
+            }
+        
+            res.setHeader('Content-Type','application/json');
+            res.status(200).json(resultado);
+        })
+
+        app.get('/products/:id',(req,res)=>{
+
+            let id=req.params.id
+
+            id=parseInt(id)  
+            if(isNaN(id)){
+                return res.send('Error, ingrese un argumento id numerico')
+            }
+        
+        
+            resultado=products.find(per=>per.id===id)
+        
+            res.setHeader('Content-Type','application/json');
+            res.status(200).json(resultado);
+        })
+
     } catch (error){
         console.log(error.message)
     } 

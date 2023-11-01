@@ -21,10 +21,10 @@
           "id": 3,
           "producto": "pelota",
           "descripcion": "pelota Puma",
-          "precio": 238,
+          "precio": 264.5,
           "img": "https://picsum.photos/200/300",
           "codigo": "PE03",
-          "stock": 24
+          "stock": 10
      },
      {
           "id": 4,
@@ -51,6 +51,15 @@
           "precio": 402.5,
           "img": "https://picsum.photos/200/300",
           "codigo": "BO03",
+          "stock": 10
+     },
+     {
+          "id": 7,
+          "producto": "botines",
+          "descripcion": "botines Puma",
+          "precio": 402.5,
+          "img": "https://picsum.photos/200/300",
+          "codigo": "BO04",
           "stock": 10
      }
 ]
