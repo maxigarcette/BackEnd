@@ -48,9 +48,7 @@ export default class CartsManager{
         }
 
         let indiceCart = carts.findIndex(cart => cart.cid === cid)
-
-        let listaDeProductos = carts[indiceCart].productos
-        listaDeProductos.push(nuevoProducto)
+        carts[indiceCart].productos.push(nuevoProducto)
 
         await promises.writeFile(this.path, JSON.stringify(carts,null,5))
     }
