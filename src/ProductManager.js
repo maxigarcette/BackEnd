@@ -1,6 +1,6 @@
-const fs = require('fs')
+import { existsSync, promises } from 'fs'
 
-class ProductManager{
+export default class ProductManager{
     
     static #precioBaseGanancia=0.15
 
@@ -9,14 +9,14 @@ class ProductManager{
     }
 
     async getProducts(){
-        if(fs.existsSync(this.path)){
-            return JSON.parse(await fs.promises.readFile(this.path,"utf-8"))
+        if(existsSync(this.path)){
+            return JSON.parse(await promises.readFile(this.path,"utf-8"))
         } else {
             return []
         }
     }
 
-    async addProducts(producto, descripcion, img, precio, codigo, stock){
+    async addProducts(producto, descripcion, img, precio, codigo, stock, status=true, categoria){
 
         let productos = await this.getProducts()
 
@@ -35,54 +35,17 @@ class ProductManager{
             id,
             producto, descripcion,
             precio: precio + precio*ProductManager.#precioBaseGanancia,
-            img, codigo, stock
+            img, codigo, stock, status, categoria
         }
 
         productos.push(nuevoProducto)
 
-        await fs.promises.writeFile(this.path, JSON.stringify(productos,null,5))
+        await promises.writeFile(this.path, JSON.stringify(productos,null,5))
     }
 
-    async getProductById(id){
-        let productos = await this.getProducts()
+    async updateProduct(products){
 
-        let indice = productos.findIndex(producto=>producto.id===id)
-        if(indice===-1){
-            console.log("not found")
-            return
-        }
-        return productos[indice]
-    }
+        await promises.writeFile(this.path, JSON.stringify(products,null,5))
 
-    async updateProduct(id,precio,stock){
-        let productos = await this.getProducts()
-
-        let indice = productos.findIndex(producto=>producto.id===id)
-        if(indice===-1){
-            console.log("not found")
-            return
-        }
-
-        productos[indice].precio=precio
-        productos[indice].stock=stock
-
-        await fs.promises.writeFile(this.path, JSON.stringify(productos,null,5))
-
-    }
-
-    async deleteProduct(id){
-        let productos = await this.getProducts()
-
-        let indice = productos.findIndex(producto=>producto.id===id)
-        if(indice===-1){
-            console.log("not found")
-            return
-        }
-
-        productos.pop(id)
-
-        await fs.promises.writeFile(this.path, JSON.stringify(productos,null,5))
     }
 }
-
-module.exports=ProductManager 

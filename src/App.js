@@ -1,18 +1,19 @@
-const ProductManager = require("./ProductManager")
-const express=require('express');
+import express from 'express';
+import { router as productRouter } from './routes/products.router.js';
+import { router as cartsRouter } from './routes/carts.router.js';
+const PORT=8080;
 
-const PORT=3000;
+const app = express();
 
-const app=express();
+app.use(express.json());
+app.use(express.urlencoded({extended:true}));
 
-const pm = new ProductManager("./src/archivos/productos.json")
-
+app.use('/api/products', productRouter)
+app.use('/api/carts', cartsRouter)
 
 const entorno = async()=>{
 
     try {
-
-        let products = await pm.getProducts()
 
         const server=app.listen(PORT,()=>{
             console.log(`Server escuchando en puerto ${PORT}`);
@@ -22,35 +23,6 @@ const entorno = async()=>{
             res.setHeader('Content-Type','text/plain');
             res.status(200).send('home');
         })
-        
-        app.get('/products',(req,res)=>{
-        
-            let resultado = products
-        
-            if(req.query.limit){
-                resultado=resultado.slice(0, req.query.limit)
-            }
-        
-            res.setHeader('Content-Type','application/json');
-            res.status(200).json(resultado);
-        })
-
-        app.get('/products/:id',(req,res)=>{
-
-            let id=req.params.id
-
-            id=parseInt(id)  
-            if(isNaN(id)){
-                return res.send('Error, ingrese un argumento id numerico')
-            }
-        
-        
-            resultado=products.find(per=>per.id===id)
-        
-            res.setHeader('Content-Type','application/json');
-            res.status(200).json(resultado);
-        })
-
     } catch (error){
         console.log(error.message)
     } 
