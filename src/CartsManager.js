@@ -38,17 +38,19 @@ export default class CartsManager{
         await promises.writeFile(this.path, JSON.stringify(products,null,5))
     }
 
-    async addProductToCart(pid, quantity){
+    async addProductToCart(cid, pid, quantity){
 
         let carts = await this.getCarts()
-
 
         let nuevoProducto ={
             pid,
             quantity,
         }
 
-        carts.productos.push(nuevoProducto)
+        let indiceCart = carts.findIndex(cart => cart.cid === cid)
+
+        let listaDeProductos = carts[indiceCart].productos
+        listaDeProductos.push(nuevoProducto)
 
         await promises.writeFile(this.path, JSON.stringify(carts,null,5))
     }

@@ -63,19 +63,15 @@ const entorno = async()=>{
             let resultado=carts.find(cart=>cart.cid===cid)
 
 
-            let pid=req.params.cid
+            let pid=req.params.pid
             pid=parseInt(pid)  
             if(isNaN(pid)){
                 return res.send('Error, ingrese un argumento pid numerico')
             }
 
             let indiceProducto = resultado.productos.findIndex(producto => producto.pid === pid)
-            if (indiceProducto === -1) {
-                res.setHeader('Content-Type', 'application/json');
-                return res.status(400).json({ error: `No existe producto con id ${pid}` })
-            }
 
-            producto = pm.getProductById(pid)
+            let producto = pm.getProductById(pid)
 
             let quantity = 1
 
@@ -93,9 +89,9 @@ const entorno = async()=>{
                 res.status(200).json({nuevoProductoSumado});
             }
 
-            cm.addProductToCart(producto.id, 1)
+            cm.addProductToCart(cid, producto.id, 1)
 
-            let nuevoProducto = { producto }
+            let nuevoProducto = { producto:pid, quantity:1 }
         
             res.setHeader('Content-Type', 'application/json');
             return res.status(201).json({ nuevoProducto });

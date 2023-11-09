@@ -49,10 +49,10 @@ export default class ProductManager{
 
     }
 
-    async getProductById(id){
+    async getProductById(pid){
         let productos = await this.getProducts()
 
-        let indice = productos.findIndex(producto=>producto.id===id)
+        let indice = productos.findIndex(producto=>producto.id===pid)
         if(indice===-1){
             console.log("not found")
             return
