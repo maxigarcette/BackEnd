@@ -48,4 +48,15 @@ export default class ProductManager{
         await promises.writeFile(this.path, JSON.stringify(products,null,5))
 
     }
+
+    async getProductById(id){
+        let productos = await this.getProducts()
+
+        let indice = productos.findIndex(producto=>producto.id===id)
+        if(indice===-1){
+            console.log("not found")
+            return
+        }
+        return productos[indice]
+    }
 }

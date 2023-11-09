@@ -36,7 +36,7 @@ const entorno = async()=>{
                 return res.status(400).json({ error: `No existe producto con id ${id}` })
             }
 
-            let resultado=products.find(per=>per.id===id)
+            let resultado=products.find(producto=>producto.id===id)
 
             res.setHeader('Content-Type','application/json');
             res.status(200).json(resultado);

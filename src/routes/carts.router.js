@@ -1,8 +1,10 @@
 import CartsManager from "../CartsManager.js";
+import ProductManager from "../ProductManager.js";
 import { Router } from 'express';
 export const router=Router()
 
 const cm = new CartsManager("./src/archivos/carritos.json")
+const pm = new ProductManager("./src/archivos/productos.json")
 
 const entorno = async()=>{
 
@@ -44,13 +46,7 @@ const entorno = async()=>{
             res.status(200).json(resultado);
         })
 
-       /*router.post('/:cid/product/:pid', (req, res) => {
-
-            let { productId, productQuantity } = req.body
-            if (!productId || !productQuantity) {
-                res.setHeader('Content-Type', 'application/json');
-                return res.status(400).json({ error: `ingrese id de producto y cantidad` })
-            }
+       router.post('/:cid/products/:pid', (req, res) => {
 
             let cid=req.params.cid
             cid=parseInt(cid)  
@@ -66,32 +62,45 @@ const entorno = async()=>{
 
             let resultado=carts.find(cart=>cart.cid===cid)
 
+
             let pid=req.params.cid
             pid=parseInt(pid)  
             if(isNaN(pid)){
                 return res.send('Error, ingrese un argumento pid numerico')
             }
-        
-            let existe = resultado.find(producto => producto.pid === pid)
-            if (existe) {
-                sumaCart = cm.getCartById(pid)
-                sumaCart.quantity + productQuantity
+
+            let indiceProducto = resultado.productos.findIndex(producto => producto.pid === pid)
+            if (indiceProducto === -1) {
+                res.setHeader('Content-Type', 'application/json');
+                return res.status(400).json({ error: `No existe producto con id ${pid}` })
             }
 
-            carts[indiceCart] = cartModificado
+            producto = pm.getProductById(pid)
 
-            pm.updateProduct(carts)
+            let quantity = 1
+
+            if (producto.id === resultado.productos[indiceProducto].pid) {   
+                let nuevoProductoSumado ={
+                    pid:producto.id,
+                    quantity:quantity++,
+                }
+
+                resultado.productos[indiceProducto] = nuevoProductoSumado
+
+                cm.updateProduct(resultado.productos)
         
-            res.setHeader('Content-Type', 'application/json');
-            res.status(200).json({cartModificado});
-            
+                res.setHeader('Content-Type', 'application/json');
+                res.status(200).json({nuevoProductoSumado});
+            }
 
-            cm.addProductsToCart(productId, productQuantity)
-            let nuevoProducto = { producto, descripcion, img, precio, codigo, stock, categoria }
+            cm.addProductToCart(producto.id, 1)
+
+            let nuevoProducto = { producto }
         
             res.setHeader('Content-Type', 'application/json');
             return res.status(201).json({ nuevoProducto });
-        })*/
+
+        })
 
     } catch (error){
         console.log(error.message)
