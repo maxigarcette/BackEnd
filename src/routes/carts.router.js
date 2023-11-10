@@ -60,42 +60,30 @@ const entorno = async()=>{
                 return res.status(400).json({ error: `No existe cart con id ${cid}` })
             }
 
-            let resultado=carts.find(cart=>cart.cid===cid)
-
+            let resultado=carts.find(cart=>cart.cid===cid).productos
 
             let pid=req.params.pid
             pid=parseInt(pid)  
             if(isNaN(pid)){
                 return res.send('Error, ingrese un argumento pid numerico')
             }
+            
+            let productoASumar = resultado.find(product=>product.pid===pid)
 
-            let indiceProducto = resultado.productos.findIndex(producto => producto.pid === pid)
+            if (!productoASumar) {
+                
+                let quantity = 1
+                cm.addProductToCart(cid, pid, quantity)
 
-            let producto = pm.getProductById(pid)
-
-            let quantity = 1
-
-            if (producto.id === resultado.productos[indiceProducto].pid) {   
-                let nuevoProductoSumado ={
-                    pid:producto.id,
-                    quantity:quantity++,
+                let nuevoProducto = {
+                    pid:pid,
+                    quantity:quantity
                 }
 
-                resultado.productos[indiceProducto] = nuevoProductoSumado
-
-                cm.updateProduct(resultado.productos)
-        
                 res.setHeader('Content-Type', 'application/json');
-                res.status(200).json({nuevoProductoSumado});
+                return res.status(201).json({nuevoProducto});
             }
-
-            cm.addProductToCart(cid, producto.id, 1)
-
-            let nuevoProducto = { producto:pid, quantity:1 }
-        
-            res.setHeader('Content-Type', 'application/json');
-            return res.status(201).json({ nuevoProducto });
-
+            cm.addExistingProductToCart(cid, productoASumar.pid, productoASumar.quantity)
         })
 
     } catch (error){

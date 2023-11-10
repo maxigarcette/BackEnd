@@ -1,7 +1,7 @@
 import { existsSync, promises } from 'fs'
 
 export default class ProductManager{
-    
+
     static #precioBaseGanancia=0.15
 
     constructor(rutaArchivo){
@@ -47,16 +47,5 @@ export default class ProductManager{
 
         await promises.writeFile(this.path, JSON.stringify(products,null,5))
 
-    }
-
-    async getProductById(pid){
-        let productos = await this.getProducts()
-
-        let indice = productos.findIndex(producto=>producto.id===pid)
-        if(indice===-1){
-            console.log("not found")
-            return
-        }
-        return productos[indice]
     }
 }

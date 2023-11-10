@@ -4,20 +4,30 @@
           "productos": [
                {
                     "pid": 6,
-                    "quantity": 6
-               },
-               {
-                    "pid": 5,
-                    "quantity": 7
-               },
-               {
-                    "pid": 1,
-                    "quantity": 5
-               },
-               {
                     "quantity": 1
                },
                {
+                    "pid": 5,
+                    "quantity": 1
+               },
+               {
+                    "pid": 1,
+                    "quantity": 90
+               },
+               {
+                    "pid": 90,
+                    "quantity": 4
+               },
+               {
+                    "pid": 99,
+                    "quantity": 4
+               },
+               {
+                    "pid": 89,
+                    "quantity": 7
+               },
+               {
+                    "pid": 67,
                     "quantity": 1
                }
           ]
@@ -31,33 +41,23 @@
                },
                {
                     "pid": 1,
-                    "quantity": 5
+                    "quantity": 1
                },
                {
                     "pid": 8,
-                    "quantity": 10
-               },
-               {
-                    "pid": 9,
-                    "quantity": 10
-               },
-               {
                     "quantity": 1
                },
                {
-                    "quantity": 1
+                    "pid": 67,
+                    "quantity": 4
                },
                {
-                    "quantity": 1
+                    "pid": 23,
+                    "quantity": 8
                },
                {
-                    "quantity": 1
-               },
-               {
-                    "quantity": 1
-               },
-               {
-                    "quantity": 1
+                    "pid": 22,
+                    "quantity": 3
                }
           ]
      },
