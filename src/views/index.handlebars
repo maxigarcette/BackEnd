@@ -1,0 +1,14 @@
+<h2>Home Page</h2>
+<hr>
+<br><br>
+<a href="/cart">cart</a>
+<br><br>
+<hr>
+<ul>
+    {{#each resultado}}
+    <div>
+        <h4>{{this.producto}}</h4>
+        <p>Descripcion: {{this.descripcion}} - Precio: {{this.precio}}</p>
+    </div>
+    {{/each}}
+</ul>
